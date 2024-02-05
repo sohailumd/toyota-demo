@@ -3,8 +3,7 @@ pipeline {
 
     stages {
         stage('AWS Creds') {
-            step {
-
+            steps {
                 withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding', 
                 credentialsId: 'awscreds', 
