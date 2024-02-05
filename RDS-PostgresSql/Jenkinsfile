@@ -22,6 +22,7 @@ pipeline {
                     cd RDS-PostgresSql
                     ls -l
                     terraform ${action} -auto-approve 
+                }
             }
         }
     }
