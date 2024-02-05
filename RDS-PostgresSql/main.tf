@@ -31,6 +31,10 @@ resource "aws_security_group" "pgdb-SG" {
   }
 }
 
+data "aws_secretsmanager_secret" "pgdb-pw-sm" {
+  name = "demo/postgressql-sm"
+}
+
 resource "aws_db_instance" "this" {
 
   identifier             = local.name
@@ -42,7 +46,7 @@ resource "aws_db_instance" "this" {
   multi_az               = var.multi_az
   publicly_accessible    = var.publicly_accessible
   username               = var.username
-  password               = "Winter2024!"
+  password               = data.aws_secretsmanager_secret.pgdb-pw-sm.id
   #  parameter_group_name = var.parameter_group_name
 
   allocated_storage     = var.allocated_storage

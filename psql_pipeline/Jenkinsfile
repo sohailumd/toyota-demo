@@ -9,6 +9,8 @@ pipeline {
         PG_PASSWORD = 'Winter2024!'
     }
 
+        PG_USERNAME = credentials('pgdbcreds')
+        PG_PASSWORD = credentials('pgdbcreds')
     stages {
         stage('Run SQL Query') {
             steps {
