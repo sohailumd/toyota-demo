@@ -1,7 +1,3 @@
-variable "access_key" {}
-
-variable "secret_access_key" {}
-
 variable "port" {
   default = "5432"
 }
