@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    
+    environment {
+        PG_HOST = 'demo-postgresql.c4fcwcpo9bzm.us-east-2.rds.amazonaws.com'
+        PG_PORT = '5432'
+        PG_DATABASE = 'postgres'
+        PG_USERNAME = 'pgdb'
+        PG_PASSWORD = 'Winter2024!'
+    }
+
+    stages {
+        stage('Run SQL Query') {
+            steps {
+                script {
+                    def sqlQuery = """
+                        DELETE FROM Employees WHERE EmployeeID = 2;
+                    """
+                    
+                    def psqlCommand = "PGPASSWORD=${env.PG_PASSWORD} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${env.PG_USERNAME} -c \"${sqlQuery}\""
+                    
+                    sh psqlCommand
+                }
+            }
+        }
+    }
+}

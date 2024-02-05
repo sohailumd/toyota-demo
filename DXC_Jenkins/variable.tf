@@ -1,0 +1,4 @@
+variable "port" {
+  type = list
+  default = [22,80,443,5432,8080]
+}
