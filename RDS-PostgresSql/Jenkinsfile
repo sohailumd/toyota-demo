@@ -1,7 +1,17 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_DEFAULT_REGION = 'us-east-2'
+    }
+
     stages {
+        stage('AWS Creds') {
+            script {
+                def awsCredentials = credentials('awscreds')
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: awsCredentials.id, accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
