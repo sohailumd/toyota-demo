@@ -23,6 +23,7 @@ pipeline {
                 ls -l
                 terraform ${action} -auto-approve
                 '''
+                }
             }
         }    
     }
