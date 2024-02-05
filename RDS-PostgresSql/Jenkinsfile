@@ -7,24 +7,23 @@ pipeline {
                 checkout scm
             }
         }
-        stage('AWS Creds') {
+        stage('Terraform RDS build') {
             steps {
                 withCredentials([[
-                $class: 'AmazonWebServicesCredentialsBinding', 
-                credentialsId: 'awscreds', 
-                accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                $class: 'AmazonWebServicesCredentialsBinding',
+                credentialsId: 'awscreds',
+                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                 sh '''
-                   cd RDS-PostgresSql
-                    ls -l
-                    terraform init
-                    echo "Terraform action is --> ${action}"
-                    cd RDS-PostgresSql
-                    ls -l
-                    terraform ${action} -auto-approve 
-                }
+                cd RDS-PostgresSql
+                ls -l
+                terraform init
+                echo "Terraform action is --> ${action}"
+                cd RDS-PostgresSql
+                ls -l
+                terraform ${action} -auto-approve 
             }
-        }
+        }    
     }
 }
-    
+
