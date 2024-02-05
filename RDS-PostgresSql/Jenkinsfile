@@ -21,7 +21,8 @@ pipeline {
                 echo "Terraform action is --> ${action}"
                 cd RDS-PostgresSql
                 ls -l
-                terraform ${action} -auto-approve 
+                terraform ${action} -auto-approve
+                '''
             }
         }    
     }
