@@ -8,8 +8,7 @@ pipeline {
     stages {
         stage('AWS Creds') {
             steps {
-                def awsCredentials = credentials('awscreds')
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: awsCredentials.id, accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
+                 withAWS(credentials: 'awscreds', region: 'us-east-2')
             }
         }
         stage('Checkout') {
