@@ -19,7 +19,6 @@ pipeline {
                 ls -l
                 terraform init
                 echo "Terraform action is --> ${action}"
-                cd RDS-PostgresSql
                 ls -l
                 terraform ${action} -auto-approve
                 '''
