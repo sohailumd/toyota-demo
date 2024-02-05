@@ -32,7 +32,7 @@ resource "aws_security_group" "pgdb-SG" {
 }
 
 data "aws_secretsmanager_secret" "pgdb-pw-sm" {
-  name = "demo/postgressql-sm"
+  arn = "arn:aws:secretsmanager:us-east-2:287850811726:secret:demo/postgressql-sm-KG8WpC"
 }
 
 resource "aws_db_instance" "this" {
