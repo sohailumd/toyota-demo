@@ -1,14 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        AWS_DEFAULT_REGION = 'us-east-2'
-    }
-
     stages {
         stage('AWS Creds') {
-            steps {
-                 withAWS(credentials: 'awscreds', region: 'us-east-2')
+            step {
+
+                withCredentials([[
+                $class: 'AmazonWebServicesCredentialsBinding', 
+                credentialsId: 'awscreds', 
+                accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
             }
         }
         stage('Checkout') {
