@@ -14,7 +14,23 @@ pipeline {
             steps {
                 script {
                     def sqlQuery = """
-                        DELETE FROM Employees WHERE EmployeeID = 2;
+                    
+                        CREATE TABLE Employee (
+                        EmployeeID INT PRIMARY KEY,
+                        FirstName VARCHAR(50),
+                        LastName VARCHAR(50),
+                        DateOfBirth DATE,
+                        Gender CHAR(1),
+                        Department VARCHAR(50),
+                        Salary DECIMAL(10, 2),
+                        HireDate DATE
+                        );
+                        INSERT INTO Employee (EmployeeID, FirstName, LastName, DateOfBirth, Gender, Department, Salary, HireDate)
+                        VALUES 
+                            (1, 'John', 'Doe', '1985-05-10', 'M', 'Engineering', 60000.00, '2010-01-15'),
+                            (2, 'Jane', 'Smith', '1990-08-15', 'F', 'Marketing', 55000.00, '2015-03-20'),
+                            (3, 'Michael', 'Johnson', '1988-12-03', 'M', 'Finance', 65000.00, '2018-07-10');
+#                        DELETE FROM Employees WHERE EmployeeID = 2;
                     """
                     
                     def psqlCommand = "PGPASSWORD=${env.PG_PASSWORD} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${env.PG_USERNAME} -c \"${sqlQuery}\""

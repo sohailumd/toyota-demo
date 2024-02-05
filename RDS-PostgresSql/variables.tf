@@ -21,18 +21,14 @@ variable "instance_class" {
 }
 
 variable "multi_az" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 variable "publicly_accessible" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
-
-/*variable "parameter_group_name"{
-    default = "default.mysql5.7"
-}*/
 
 variable "db_name" {
   description = "The DB name to create. If omitted, no database is created initially"
@@ -60,7 +56,7 @@ variable "storage_type" {
 }
 
 variable "max_allocated_storage" {
-    default = "100"  
+  default = "100"
 }
 
 variable "maintenance_window" {
@@ -68,31 +64,31 @@ variable "maintenance_window" {
 }
 
 variable "enabled_cloudwatch_logs_exports" {
-  type = list
+  type    = list(any)
   default = ["postgresql", "upgrade"]
 }
 
 variable "performance_insights_enabled" {
-    type = bool
-    default = true
+  type    = bool
+  default = true
 }
 
 variable "performance_insights_retention_period" {
-    default = "7"
-  
+  default = "7"
+
 }
 
 variable "deletion_protection" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "delete_automated_backups" {
-  type = bool
+  type    = bool
   default = true
 }
 
 variable "skip_final_snapshot" {
-  type = bool
+  type    = bool
   default = true
 }
