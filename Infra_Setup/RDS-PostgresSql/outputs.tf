@@ -33,19 +33,9 @@ output "db_instance_engine_version_actual" {
   value       = aws_db_instance.this.engine_version_actual
 }
 
-output "db_instance_hosted_zone_id" {
-  description = "The canonical hosted zone ID of the DB instance (to be used in a Route 53 Alias record)"
-  value       = aws_db_instance.this.hosted_zone_id
-}
-
 output "db_instance_identifier" {
   description = "The RDS instance identifier"
   value       = aws_db_instance.this.identifier
-}
-
-output "db_instance_resource_id" {
-  description = "The RDS Resource ID of this instance"
-  value       = aws_db_instance.this.resource_id
 }
 
 output "db_instance_status" {
@@ -69,17 +59,7 @@ output "db_instance_port" {
   value       = aws_db_instance.this.port
 }
 
-output "db_instance_ca_cert_identifier" {
-  description = "Specifies the identifier of the CA certificate for the DB instance"
-  value       = aws_db_instance.this.ca_cert_identifier
-}
-
 output "db_instance_domain" {
   description = "The ID of the Directory Service Active Directory domain the instance is joined to"
   value       = aws_db_instance.this.domain
-}
-
-output "db_instance_domain_iam_role_name" {
-  description = "The name of the IAM role to be used when making API calls to the Directory Service"
-  value       = aws_db_instance.this.domain_iam_role_name
 }

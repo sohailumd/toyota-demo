@@ -7,24 +7,6 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Setup VPC and Subnets') {
-            steps {
-                withCredentials([[
-                $class: 'AmazonWebServicesCredentialsBinding',
-                credentialsId: 'awscreds',
-                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                sh '''
-                cd Infra_Setup/VPC_TF
-                ls -l
-                terraform init
-                echo "Terraform action is --> ${action}"
-                ls -l
-                terraform ${action} -auto-approve
-                '''
-                }
-            }
-        } 
         stage('Terraform RDS build') {
             steps {
                 withCredentials([[
@@ -42,7 +24,7 @@ pipeline {
                 '''
                 }
             }
-        }     
+        }    
     }
 }
 
