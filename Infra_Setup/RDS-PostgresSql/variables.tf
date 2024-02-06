@@ -30,6 +30,12 @@ variable "publicly_accessible" {
   default = true
 }
 
+variable "db_name" {
+  description = "The DB name to create. If omitted, no database is created initially"
+  type        = string
+  default     = "database1"
+}
+
 variable "username" {
   description = "Username for the master DB user"
   type        = string

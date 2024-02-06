@@ -13,7 +13,7 @@ data "aws_secretsmanager_secret" "pgdb-pw-sm" {
 resource "aws_db_instance" "this" {
 
   identifier             = local.name
-  db_name                = "${local.name}-db"
+  db_name                = var.db_name
   engine                 = var.engine
   engine_version         = var.engine_version
   instance_class         = var.instance_class
