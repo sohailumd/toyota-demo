@@ -15,6 +15,12 @@ data "aws_ami" "amazon-linux-2" {
  }
 }
 
+data "aws_vpc" "vpc" {
+  tags = {
+    Name = "toyota-demo-vpc"
+  }
+}
+
 resource "aws_instance" "demo-instance" {
   ami                    = data.aws_ami.amazon-linux-2.id
   instance_type          = "t2.medium"
@@ -24,15 +30,16 @@ resource "aws_instance" "demo-instance" {
     volume_size = "30"
   }
   tags = {
-    Name     = "Jenkins01"
-    resource = "toyota-demo"
+    Name  = "Jenkins01"
+    Owner = "Terraform"
   }
 }
 
 #Security Group Resource to open port 80 
 resource "aws_security_group" "JenkinsSG" {
-  name        = "Jenkins-SG"
-  description = "Jenkins-SG"
+  name        = "Jenkins-SG-new"
+  description = "Jenkins-SG-new"
+  vpc_id      = data.aws_vpc.vpc.id
 
   dynamic ingress {
     for_each = var.port
@@ -51,9 +58,6 @@ resource "aws_security_group" "JenkinsSG" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-  }
-  tags = {
-    resource = "toyota-demo"
   }
 }
 

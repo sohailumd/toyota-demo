@@ -6,31 +6,6 @@ locals {
   name = "demo-postgresql"
 }
 
-resource "aws_security_group" "pgdb-SG" {
-  name        = "${local.name}-SG"
-  description = "${local.name}-SG"
-
-  ingress {
-    description = "Port 5432 from Everywhere"
-    from_port   = var.port
-    to_port     = var.port
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name     = "${local.name}-SG"
-    resource = "toyota-demo"
-  }
-}
-
 data "aws_secretsmanager_secret" "pgdb-pw-sm" {
   arn = "arn:aws:secretsmanager:us-east-2:287850811726:secret:demo/postgressql-sm-KG8WpC"
 }
@@ -65,6 +40,37 @@ resource "aws_db_instance" "this" {
 
   tags = {
     Name     = local.name
+    resource = "toyota-demo"
+  }
+}
+
+data "aws_vpc" "vpc" {
+  tags = {
+    Name = "toyota-demo-vpc"
+  }
+}
+
+resource "aws_security_group" "pgdb-SG" {
+  name        = "${local.name}-SG"
+  description = "${local.name}-SG"
+  vpc_id      = data.aws_vpc.vpc.id
+  ingress {
+    description = "Port 5432 from Everywhere"
+    from_port   = var.port
+    to_port     = var.port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name     = "${local.name}-SG"
     resource = "toyota-demo"
   }
 }
