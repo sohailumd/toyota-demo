@@ -22,7 +22,6 @@ resource "aws_db_instance" "this" {
   publicly_accessible    = var.publicly_accessible
   username               = var.username
   password               = data.aws_secretsmanager_secret.pgdb-pw-sm.id
-  #  parameter_group_name = var.parameter_group_name
 
   allocated_storage     = var.allocated_storage
   storage_type          = var.storage_type
