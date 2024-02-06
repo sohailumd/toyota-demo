@@ -1,16 +1,19 @@
 output "vpc_id" {
   description = "The ID of the VPC"
-  value       = aws_vpc.main.vpc_id
+  value       = aws_vpc.main.id
 }
 
 output "service-subnet" {
-  value = aws_subnet.service-sn
+  description = "Service Subnet"
+  value = aws_subnet.service-sn.id
 }
 
 output "database-subnet" {
-  value = aws_subnet.database-sn
+  description = "Database Subnet"
+  value = aws_subnet.database-sn.id
 }
 
 output "app-subnet" {
-  value = aws_subnet.app-sn
+  description = "App Subnet"
+  value = aws_subnet.app-sn.id
 }
