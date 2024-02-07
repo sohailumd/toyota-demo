@@ -13,17 +13,16 @@ pipeline {
             steps {
                 script {
                     echo 'Cloning repository...'
-                    ls -l
-                    gh repo clone sohailumd/toyota-demo
-                    cd demo-ddl-dml
-                    ls -l
-					def sqlQueryforCreateTable = readFile('psql_script/Table_Create.sql')
-                    def sqlQueryforInsertRows  = readFile('psql_script/Table_Insert.sql')
+                    checkout([$class: 'GitSCM', 
+                              branches: [[name: 'main']], 
+                              doGenerateSubmoduleConfigurations: false, 
+                              extensions: [], 
+                              userRemoteConfigs: [[url: 'git@github.com:sohailumd/toyota-demo.git']]])
+					def sqlQuery = readFile('psql_scripts/Table_Create.sql')
                     sh """
                     pwd
                     ls -l
-					PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQueryforCreateTable}\"
-                    PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQueryforInsertRows}\"
+					PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQuery}\"
 					echo "HURRAY"
 					"""
                 }
