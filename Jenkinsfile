@@ -16,6 +16,7 @@ pipeline {
                     sh '''
                     git --version
                     which git
+                    whoami
                     git clone git@github.com:sohailumd/toyota-demo.git
                     ls -l
                     '''
