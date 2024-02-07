@@ -18,18 +18,19 @@ pipeline {
                     which git
                     whoami
                     ls -l
-                    git clone git@github.com:sohailumd/toyota-demo.git
                     '''
                     checkout([$class: 'GitSCM', 
                               branches: [[name: 'main']], 
                               doGenerateSubmoduleConfigurations: false, 
                               extensions: [], 
                               userRemoteConfigs: [[url: 'git@github.com:sohailumd/toyota-demo.git']]])
-					def sqlQuery = readFile('psql_scripts/Table_Create.sql')
+					def sqlQueryCreate = readFile('psql_scripts/Table_Create.sql')
+					def sqlQueryInsert = readFile('psql_scripts/Table_Insert.sql')
                     sh """
                     pwd
                     ls -l
-					PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQuery}\"
+					PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQueryCreate}\"
+					PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQueryInsert}\"
 					echo "HURRAY"
 					"""
                 }
