@@ -15,6 +15,7 @@ pipeline {
                     echo 'Cloning repository...'
                     sh '''
                     git --version
+                    which git
                     '''
                     checkout([$class: 'GitSCM', 
                               branches: [[name: 'main']], 
