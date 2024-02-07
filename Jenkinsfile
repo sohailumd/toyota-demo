@@ -13,7 +13,8 @@ pipeline {
             steps {
                 script {
                     echo 'Cloning repository...'
-                    git clone git@github.com:sohailumd/toyota-demo.git
+                    ls -l
+                    gh repo clone sohailumd/toyota-demo
                     cd demo-ddl-dml
                     ls -l
 					def sqlQueryforCreateTable = readFile('psql_script/Table_Create.sql')
