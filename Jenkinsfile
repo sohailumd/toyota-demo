@@ -13,6 +13,7 @@ pipeline {
             steps {
                 script {
                     echo 'Cloning repository...'
+                    git --version
                     checkout([$class: 'GitSCM', 
                               branches: [[name: 'main']], 
                               doGenerateSubmoduleConfigurations: false, 
