@@ -17,6 +17,7 @@ pipeline {
                     git --version
                     which git
                     git clone git@github.com:sohailumd/toyota-demo.git
+                    ls -l
                     '''
                     checkout([$class: 'GitSCM', 
                               branches: [[name: 'main']], 
