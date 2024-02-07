@@ -13,11 +13,10 @@ pipeline {
             steps {
                 script {
                     echo 'Cloning repository...'
-                    checkout([$class: 'GitSCM', 
-                              branches: [[name: 'main']], 
-                              doGenerateSubmoduleConfigurations: false, 
-                              extensions: [], 
-                              userRemoteConfigs: [[url: 'https://github.com/sohailumd/demo-ddl-dml.git']]])
+                    sh """
+                    git clone https://github.com/sohailumd/demo-ddl-dml.git
+                    cd demo-ddl-dml
+                    """
 					def sqlQueryforCreateTable = readFile('psql_script/Table_Create.sql')
                     def sqlQueryforInsertRows  = readFile('psql_script/Table_Insert.sql')
                     sh """
