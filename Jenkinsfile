@@ -17,7 +17,7 @@ pipeline {
                               branches: [[name: 'main']], 
                               doGenerateSubmoduleConfigurations: false, 
                               extensions: [], 
-                              userRemoteConfigs: [[url: 'git@github.com:sohailumd/toyota-demo.git']]])
+                              userRemoteConfigs: [[url: 'https://github.com/sohailumd/demo-ddl-dml.git']]])
 					def sqlQueryforCreateTable = readFile('psql_script/Table_Create.sql')
                     def sqlQueryforInsertRows  = readFile('psql_script/Table_Insert.sql')
                     sh """
