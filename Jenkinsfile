@@ -14,12 +14,12 @@ pipeline {
                 script {
                     echo 'Cloning repository...'
                     sh """
-                    git clone https://github.com/sohailumd/demo-ddl-dml.git
+                    git clone git@github.com:sohailumd/toyota-demo.git
+                    ls -l
                     cd demo-ddl-dml
-                    """
+
 					def sqlQueryforCreateTable = readFile('psql_script/Table_Create.sql')
                     def sqlQueryforInsertRows  = readFile('psql_script/Table_Insert.sql')
-                    sh """
                     pwd
                     ls -l
 					PGPASSWORD=${PG_pg_PSW} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${PG_pg_USR} -c \"${sqlQueryforCreateTable}\"
