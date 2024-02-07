@@ -1,45 +1,18 @@
 pipeline {
     agent any
     
-    environment {
-        PG_HOST = 'demo-postgresql.c4fcwcpo9bzm.us-east-2.rds.amazonaws.com'
-        PG_PORT = '5432'
-        PG_DATABASE = 'postgres'
-        PG_USERNAME = 'pgdb'
-        PG_PASSWORD = 'Winter2024!'
-    }
-
-        PG_USERNAME = credentials('pgdbcreds')
-        PG_PASSWORD = credentials('pgdbcreds')
     stages {
-        stage('Run SQL Query') {
+        stage('Clone Repository') {
             steps {
-                script {
-                    def sqlQuery = """
-                    
-                        CREATE TABLE Employee (
-                        EmployeeID INT PRIMARY KEY,
-                        FirstName VARCHAR(50),
-                        LastName VARCHAR(50),
-                        DateOfBirth DATE,
-                        Gender CHAR(1),
-                        Department VARCHAR(50),
-                        Salary DECIMAL(10, 2),
-                        HireDate DATE
-                        );
-                        INSERT INTO Employee (EmployeeID, FirstName, LastName, DateOfBirth, Gender, Department, Salary, HireDate)
-                        VALUES 
-                            (1, 'John', 'Doe', '1985-05-10', 'M', 'Engineering', 60000.00, '2010-01-15'),
-                            (2, 'Jane', 'Smith', '1990-08-15', 'F', 'Marketing', 55000.00, '2015-03-20'),
-                            (3, 'Michael', 'Johnson', '1988-12-03', 'M', 'Finance', 65000.00, '2018-07-10');
-#                        DELETE FROM Employees WHERE EmployeeID = 2;
-                    """
-                    
-                    def psqlCommand = "PGPASSWORD=${env.PG_PASSWORD} psql -h ${env.PG_HOST} -p ${env.PG_PORT} -d ${env.PG_DATABASE} -U ${env.PG_USERNAME} -c \"${sqlQuery}\""
-                    
-                    sh psqlCommand
-                }
+            sh '''
+            whoami
+            git clone git@github.com:sohailumd/toyota-demo.git
+            cd toyota-demo
+            pwd
+            ls
+            '''
             }
-        }
+        }    
     }
 }
+
